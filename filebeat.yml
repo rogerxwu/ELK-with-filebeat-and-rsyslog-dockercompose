@@ -1,0 +1,12 @@
+filebeat.inputs:
+- type: log   # depends on the log file you collected from the devices
+  enabled: true
+  paths:
+    - /usr/share/filebeat/remote_log/2021*/*.log    #suggest to create a remote_log dir to store all remotely collected logs
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+processors:
+  - add_docker_metadata:
+      host: "unix:///host_docker/docker.sock"
